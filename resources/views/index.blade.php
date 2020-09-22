@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="{{asset('css/index.css')}}">
 </head>
 <body>
-  <div id="container">
+  <div id="app">
     <div class="week">
       <div>&nbsp;</div>
       <div class="time-container">
@@ -40,206 +40,47 @@
     <div class="week">
       <div>月</div>
       <div class="time-container">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
       </div>
     </div>
     <div class="week">
       <div>火</div>
       <div class="time-container">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
       </div>
     </div>
     <div class="week">
       <div>水</div>
       <div class="time-container">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
       </div>
     </div>
     <div class="week">
       <div>木</div>
       <div class="time-container">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
       </div>
     </div>
     <div class="week">
       <div>金</div>
       <div class="time-container">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
       </div>
     </div>
     <div class="week">
       <div>土</div>
       <div class="time-container">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
       </div>
     </div>
     <div class="week">
       <div>日</div>
       <div class="time-container">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
       </div>
     </div>
+    <modal :show-modal="this.showModal" :time="this.time" v-on:close-modal="closeModal"></modal>
   </div>
+  <script src="{{asset('js/app.js')}}"></script>
 </body>
 </html>
