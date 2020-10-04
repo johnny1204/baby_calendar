@@ -7,8 +7,47 @@
   <link rel="stylesheet" href="{{asset('css/index.css')}}">
 </head>
 <body>
-  <div id="app">
-    <div class="week">
+  <div id="app" class="v-application">
+    <v-row class="fill-height">
+      <v-col>
+      <v-toolbar
+        flat
+      >
+        <v-btn
+        fab
+        small
+        absolute
+        left
+        color="primary"
+        @click="$refs.calendar.prev()"
+      >
+        <v-icon dark>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-btn
+          fab
+          small
+          absolute
+          right
+          color="primary"
+          @click="$refs.calendar.next()"
+        >
+          <v-icon dark>mdi-chevron-right</v-icon>
+        </v-btn>
+      </v-toolbar>
+        <v-sheet height="800">
+          <v-calendar
+          ref="calendar"
+          :now="today"
+          :events="events"
+          color="primary"
+          type="week"
+          v-model="focus"
+          @change="getEvents"
+          ></v-calendar>
+        </v-sheet>
+      </v-col>
+    </v-row>
+    {{-- <div class="week">
       <div>&nbsp;</div>
       <div class="time-container">
         <div class="time"><span>0:00</span></div>
@@ -78,8 +117,8 @@
       <div class="time-container">
         <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
       </div>
-    </div>
-    <modal :show-modal="this.showModal" :time="this.time" v-on:close-modal="closeModal"></modal>
+    </div> --}}
+    {{-- <modal :show-modal="this.showModal" :time="this.time" v-on:close-modal="closeModal"></modal> --}}
   </div>
   <script src="{{asset('js/app.js')}}"></script>
 </body>
