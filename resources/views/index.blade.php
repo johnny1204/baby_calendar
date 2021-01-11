@@ -10,115 +10,34 @@
   <div id="app" class="v-application">
     <v-row class="fill-height">
       <v-col>
-      <v-toolbar
-        flat
-      >
-        <v-btn
-        fab
-        small
-        absolute
-        left
-        color="primary"
-        @click="$refs.calendar.prev()"
-      >
-        <v-icon dark>mdi-chevron-left</v-icon>
-        </v-btn>
-        <v-btn
-          fab
-          small
-          absolute
-          right
-          color="primary"
-          @click="$refs.calendar.next()"
-        >
-          <v-icon dark>mdi-chevron-right</v-icon>
-        </v-btn>
-      </v-toolbar>
+        <v-toolbar flat>
+          <v-btn fab text small color="grey darken-2" @click="prev">
+            <v-icon small>mdi-chevron-left</v-icon>
+          </v-btn>
+          <v-btn fab text small color="grey darken-2" @click="next">
+            <v-icon small>mdi-chevron-right</v-icon>
+          </v-btn>
+        </v-toolbar>
         <v-sheet height="800">
           <v-calendar
-          ref="calendar"
-          :now="today"
-          :events="events"
-          color="primary"
-          type="week"
-          v-model="focus"
-          @change="getEvents"
-          ></v-calendar>
+            ref="calendar"
+            :now="today"
+            :events="events"
+            color="primary"
+            type="week"
+            v-model="focus"
+            @change="getEvents"
+            @click:event="openModal"
+          >
+          <template v-slot:event="{ event, timed, eventSummary }">
+            <div class="v-event-draggable" v-html="eventSummary()"></div>
+            <div v-if="timed" class="v-event-drag-bottom" @mousedown.stop="extendBottom(event)"></div>
+          </template>
+          </v-calendar>
         </v-sheet>
       </v-col>
     </v-row>
-    {{-- <div class="week">
-      <div>&nbsp;</div>
-      <div class="time-container">
-        <div class="time"><span>0:00</span></div>
-        <div class="time"><span>1:00</span></div>
-        <div class="time"><span>2:00</span></div>
-        <div class="time"><span>3:00</span></div>
-        <div class="time"><span>4:00</span></div>
-        <div class="time"><span>5:00</span></div>
-        <div class="time"><span>6:00</span></div>
-        <div class="time"><span>7:00</span></div>
-        <div class="time"><span>8:00</span></div>
-        <div class="time"><span>9:00</span></div>
-        <div class="time"><span>10:00</span></div>
-        <div class="time"><span>11:00</span></div>
-        <div class="time"><span>12:00</span></div>
-        <div class="time"><span>13:00</span></div>
-        <div class="time"><span>14:00</span></div>
-        <div class="time"><span>15:00</span></div>
-        <div class="time"><span>16:00</span></div>
-        <div class="time"><span>17:00</span></div>
-        <div class="time"><span>18:00</span></div>
-        <div class="time"><span>19:00</span></div>
-        <div class="time"><span>20:00</span></div>
-        <div class="time"><span>21:00</span></div>
-        <div class="time"><span>22:00</span></div>
-        <div class="time"><span>23:00</span></div>
-      </div>
-    </div>
-    <div class="week">
-      <div>月</div>
-      <div class="time-container">
-        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
-      </div>
-    </div>
-    <div class="week">
-      <div>火</div>
-      <div class="time-container">
-        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
-      </div>
-    </div>
-    <div class="week">
-      <div>水</div>
-      <div class="time-container">
-        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
-      </div>
-    </div>
-    <div class="week">
-      <div>木</div>
-      <div class="time-container">
-        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
-      </div>
-    </div>
-    <div class="week">
-      <div>金</div>
-      <div class="time-container">
-        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
-      </div>
-    </div>
-    <div class="week">
-      <div>土</div>
-      <div class="time-container">
-        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
-      </div>
-    </div>
-    <div class="week">
-      <div>日</div>
-      <div class="time-container">
-        <time-block v-for="n in 24" :key=n :time="n-1" v-on:open-modal="openModal"></time-block>
-      </div>
-    </div> --}}
-    {{-- <modal :show-modal="this.showModal" :time="this.time" v-on:close-modal="closeModal"></modal> --}}
+    <modal :show-modal="this.showModal" :time="this.time" v-on:close-modal="closeModal"></modal>
   </div>
   <script src="{{asset('js/app.js')}}"></script>
 </body>
