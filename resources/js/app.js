@@ -1,9 +1,9 @@
 require('./bootstrap');
 
-import '@mdi/font/css/materialdesignicons.css';
 window.Vue = require('vue');
 import Vuetify from 'vuetify';
 import moment from 'moment';
+import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/dist/vuetify.min.css';
 Vue.use(Vuetify);
 
@@ -25,9 +25,9 @@ const app = new Vue({
     focus: moment(new Date()).format('YYYY-MM-DD'),
   }),
   methods: {
-    openModal(time) {
+    openModal({event}) {
       this.showModal = true;
-      this.time = time;
+      this.time = event.start;
     },
     closeModal() {
       this.showModal = false;

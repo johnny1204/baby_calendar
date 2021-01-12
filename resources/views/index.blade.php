@@ -2,12 +2,12 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Document</title>
-  <link rel="stylesheet" href="{{asset('css/index.css')}}">
+  <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body>
-  <div id="app" class="v-application">
+  <div id="app" class="v-application mx-2">
     <v-row class="fill-height">
       <v-col>
         <v-toolbar flat>
