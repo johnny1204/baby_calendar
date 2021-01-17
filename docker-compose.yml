@@ -35,3 +35,12 @@ services:
       - .:/var/www/html
     ports:
       - "9000:9000"
+  schemaspy:
+    image: schemaspy/schemaspy
+    volumes:
+      - ./schemaspy/output:/output
+      - ./schemaspy/config:/config
+    container_name: "schemaspy_local"
+    command: ["-configFile", "/config/schemaspy.properties"]
+    links:
+      - db
