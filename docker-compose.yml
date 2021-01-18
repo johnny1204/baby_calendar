@@ -11,6 +11,7 @@ services:
     depends_on:
       - php
       - db
+
   db:
     image: mariadb:10.5
     restart: always
@@ -24,8 +25,9 @@ services:
       MYSQL_PASSWORD: db_password
       TZ: 'Asia/Tokyo'
     volumes:
-      - "./docker/mysql:/var/lib/mysql"
-      - "./docker/initdb.d:/docker-entrypoint-initdb.d"
+      - ./docker/mysql/data:/var/lib/mysql:cached
+      - ./docker/mysql/initdb:/docker-entrypoint-initdb.d
+
   php:
     build: ./docker/php
     container_name: baby_diary_php
@@ -35,6 +37,7 @@ services:
       - .:/var/www/html
     ports:
       - "9000:9000"
+
   schemaspy-nginx:
     image: nginx:1.13.9-alpine
     container_name: schemaspy_nginx
@@ -47,6 +50,7 @@ services:
       - LANG=ja_JP.UTF-8
       - TZ=Asia/Tokyo
     command: "nginx -g 'daemon off;'"
+
   schemaspy:
     build: ./docker/schemaspy
     image: treetips/schemaspy-mysql
