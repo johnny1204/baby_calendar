@@ -15,7 +15,7 @@ class NickName extends StringLiteral
      */
     public function __construct(string $value)
     {
-        if (10 < $value) {
+        if (10 < strlen($value)) {
             throw ValidationException::withMessages(['ニックネームは10文字以内にしてください。']);
         }
 

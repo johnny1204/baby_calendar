@@ -3,6 +3,7 @@
 namespace App\Domains\ValueObjects\User;
 
 use Illuminate\Validation\ValidationException;
+use Log;
 use ValueObjects\StringLiteral\StringLiteral;
 
 /**
@@ -15,9 +16,9 @@ class Password extends StringLiteral
      */
     public function __construct(string $value)
     {
-        if ($value < 12) {
+        if (strlen($value) < 12) {
             $is_valid = false;
-        } elseif (preg_match('/^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i', $value)) {
+        } elseif (!preg_match('/^(?=.*?[a-z])(?=.*?\d)[a-z\d]{12,}$/i', $value)) {
             $is_valid = false;
         } else {
             $is_valid = true;

@@ -3,6 +3,7 @@
 namespace App\Domains\User;
 
 use App\Domains\ValueObjects\User\NickName;
+use App\Domains\ValueObjects\User\Password;
 use ValueObjects\Web\EmailAddress;
 
 /**
@@ -21,7 +22,7 @@ class RegisterUserFactory
         return new RegisterUserEntity(
             NickName::fromNative($name),
             EmailAddress::fromNative($email),
-            $password
+            Password::fromNative($password)
         );
     }
 }

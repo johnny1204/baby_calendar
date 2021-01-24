@@ -14,10 +14,10 @@ class RegisterUserEntity
     /** @var NickName */
     private NickName $nickname;
 
-    /** @var string */
+    /** @var EmailAddress */
     private EmailAddress $email;
 
-    /** @var string */
+    /** @var Password */
     private Password $password;
 
     /**
@@ -30,7 +30,7 @@ class RegisterUserEntity
     public function __construct(NickName $nickname, EmailAddress $email, Password $password)
     {
         $this->nickname = $nickname;
-        $this->email = $email;
+        $this->email    = $email;
         $this->password = $password;
     }
 

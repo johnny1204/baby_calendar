@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Domains\User\RegisterUserFactory;
+use App\Models\User;
 use App\Repositories\User\UserRegisterRepository;
 
 /**
@@ -12,9 +13,9 @@ class RegisterService
 {
     /**
      * @param array $params
-     * @return void
+     * @return int
      */
-    public function createUser(array $params)
+    public function createUser(array $params): int
     {
         /** @var RegisterUserFactory factory */
         $factory = app(RegisterUserFactory::class);
@@ -22,6 +23,18 @@ class RegisterService
 
         /** @var UserRegisterRepository $repo */
         $repo = app(UserRegisterRepository::class);
-        $repo->register($entity);
+        $user_id = $repo->register($entity);
+
+        return $user_id->toNative();
+    }
+
+    /**
+     * @return User
+     */
+    public function getLoginUser(int $id): User
+    {
+        /** @var UserRegisterRepository $repo */
+        $repo = app(UserRegisterRepository::class);
+        return $repo->getEloquentUserById($id);
     }
 }
