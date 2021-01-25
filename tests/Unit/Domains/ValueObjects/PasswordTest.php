@@ -13,7 +13,7 @@ class PasswordTest extends TestCase
 {
     /**
      * @test
-     * @covers __construct
+     * @covers ::__construct
      */
     public function new_nickname_英数字含む12文字以上()
     {
@@ -23,7 +23,7 @@ class PasswordTest extends TestCase
 
     /**
      * @test
-     * @covers __construct
+     * @covers ::__construct
      */
     public function new_nickname_英数字含む12文字未満()
     {

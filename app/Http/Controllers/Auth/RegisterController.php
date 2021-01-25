@@ -10,6 +10,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 /**
+ * Class RegisterController
  * @package App\Http\Controllers\Auth
  */
 class RegisterController extends Controller

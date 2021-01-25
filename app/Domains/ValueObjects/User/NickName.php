@@ -6,7 +6,8 @@ use Illuminate\Validation\ValidationException;
 use ValueObjects\StringLiteral\StringLiteral;
 
 /**
- * @package App\Domains\ValueObjects\User\NickName
+ * Class NickName
+ * @package App\Domains\ValueObjects\User
  */
 class NickName extends StringLiteral
 {
@@ -15,7 +16,7 @@ class NickName extends StringLiteral
      */
     public function __construct(string $value)
     {
-        if (10 < strlen($value)) {
+        if (10 < mb_strlen($value)) {
             throw ValidationException::withMessages(['ニックネームは10文字以内にしてください。']);
         }
 

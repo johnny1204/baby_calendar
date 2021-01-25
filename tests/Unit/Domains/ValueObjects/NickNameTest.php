@@ -13,7 +13,7 @@ class NickNameTest extends TestCase
 {
     /**
      * @test
-     * @covers __construct
+     * @covers ::__construct
      */
     public function new_nickname_文字数制限以内()
     {
@@ -23,7 +23,17 @@ class NickNameTest extends TestCase
 
     /**
      * @test
-     * @covers __construct
+     * @covers ::__construct
+     */
+    public function new_nickname_文字数制限以内日本語()
+    {
+        $nickname = new NickName(str_repeat('あ', 10));
+        $this->assertEquals('ああああああああああ', $nickname->toNative());
+    }
+
+    /**
+     * @test
+     * @covers ::__construct
      */
     public function new_nickname_文字数オーバー()
     {

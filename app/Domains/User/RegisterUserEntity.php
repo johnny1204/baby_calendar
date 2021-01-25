@@ -7,7 +7,8 @@ use App\Domains\ValueObjects\User\Password;
 use ValueObjects\Web\EmailAddress;
 
 /**
- * @package App\Domains\User\RegisterUserEntity
+ * Class RegisterUserEntity
+ * @package App\Domains\User
  */
 class RegisterUserEntity
 {
@@ -39,7 +40,7 @@ class RegisterUserEntity
      */
     public function getName(): NickName
     {
-        return $this->name;
+        return $this->nickname;
     }
 
     /**

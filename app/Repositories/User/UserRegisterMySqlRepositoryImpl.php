@@ -8,21 +8,22 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * @package App\Repositories\User\UserRegisterMySqlRepositoryImpl;
+ * Class UserRegisterMySqlRepositoryImpl
+ * @package App\Repositories\User
  */
 class UserRegisterMySqlRepositoryImpl implements UserRegisterRepository
 {
     /**
-     * @param RegisterUserEntity $user
-     * @return bool
+     * @param RegisterUserEntity $user_entity
+     * @return UserId
      */
-    public function register(RegisterUserEntity $user): UserId
+    public function register(RegisterUserEntity $user_entity): UserId
     {
         /** @var User $user */
         $user = User::create([
-            'name'     => $user->getName()->toNative(),
-            'email'    => $user->getEmail()->toNative(),
-            'password' => Hash::make($user->getPassword()->toNative()),
+            'nickname'     => $user_entity->getName()->toNative(),
+            'email'    => $user_entity->getEmail()->toNative(),
+            'password' => Hash::make($user_entity->getPassword()->toNative()),
         ]);
 
         return new UserId($user->id);

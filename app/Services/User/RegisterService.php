@@ -7,7 +7,8 @@ use App\Models\User;
 use App\Repositories\User\UserRegisterRepository;
 
 /**
- * @package App\Services\User\RegisterService
+ * Class RegisterService
+ * @package App\Services\User
  */
 class RegisterService
 {
@@ -19,7 +20,7 @@ class RegisterService
     {
         /** @var RegisterUserFactory factory */
         $factory = app(RegisterUserFactory::class);
-        $entity = $factory->createEntity($params['nickname'], $params['email'], $params['pasword']);
+        $entity = $factory->createEntity($params['nickname'], $params['email'], $params['password']);
 
         /** @var UserRegisterRepository $repo */
         $repo = app(UserRegisterRepository::class);
@@ -29,6 +30,7 @@ class RegisterService
     }
 
     /**
+     * @param int $id
      * @return User
      */
     public function getLoginUser(int $id): User

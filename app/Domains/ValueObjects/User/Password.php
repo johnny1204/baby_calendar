@@ -3,11 +3,11 @@
 namespace App\Domains\ValueObjects\User;
 
 use Illuminate\Validation\ValidationException;
-use Log;
 use ValueObjects\StringLiteral\StringLiteral;
 
 /**
- * @package App\Domains\ValueObjects\User\Password
+ * Class Password
+ * @package App\Domains\ValueObjects\User
  */
 class Password extends StringLiteral
 {

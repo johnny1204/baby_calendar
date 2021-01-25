@@ -7,7 +7,8 @@ use App\Domains\ValueObjects\User\Password;
 use ValueObjects\Web\EmailAddress;
 
 /**
- * @package App\Domains\User\RegisterUserFactory
+ * Class RegisterUserFactory
+ * @package App\Domains\User
  */
 class RegisterUserFactory
 {
