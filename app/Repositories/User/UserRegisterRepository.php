@@ -6,9 +6,8 @@ use App\Domains\ValueObjects\User\UserId;
 use App\Models\User;
 
 /**
+ * Interface UserRegisterRepository
  * @package App\Repositories\User
- * @method UserId register()
- * @method User getEloquentUserById()
  */
 interface UserRegisterRepository
 {
