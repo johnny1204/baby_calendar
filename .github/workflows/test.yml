@@ -3,11 +3,9 @@ name: test
     # https://docs.github.com/ja/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
     runs-on: ubuntu-latest
   steps: 
-    - 
-      uses: actions/checkout@v2
-    - 
-      name: "compose run"
+    - uses: actions/checkout@v2
+    - name: "compose run"
       run: |-
-          docker-compose build php
-          docker-compose up -d php
+        docker-compose build php
+        docker-compose up -d php
       shell: bash
