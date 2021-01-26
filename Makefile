@@ -28,5 +28,5 @@ restart:
 	docker-compose restart
 
 test:
-	docker-compose run --rm php ./vendor/bin/phpstan analyse --memory_limit=-1
+	docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=-1
 	docker-compose run --rm php ./vendor/bin/phpunit
