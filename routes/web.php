@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::view('/', 'index')->name('index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::prefix('calendar')->name('calendar.')->group(function () {
+    Route::get('', 'CalendarController@index')->name('index');
+});
