@@ -1,6 +1,6 @@
 @extends('./layouts/base')
 @section('main')
-  <div id="app" class="pt-12 v-application mx-2">
+  <div id="app" class="pt-14 v-application mx-2">
     <v-row class="fill-height">
       <v-col>
         <v-toolbar flat>
