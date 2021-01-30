@@ -54,7 +54,7 @@ jobs:
           php artisan key:generate --env=testing
       - name: db migrate
         run: php artisan migrate --env=testing
-      - name: run phpstan
+      - name: run test
         run: |
           ./vendor/bin/phpstan analyse --memory-limit=-1
           ./vendor/bin/phpunit --configuration phpunit.xml -d memory_limit=1

@@ -26,6 +26,6 @@ class RegisterControllerTest extends TestCase
         ]);
 
         Event::assertDispatched(Registered::class, fn (Registered $event) => $event->user->email === 'test@example.com');
-        $response->assertRedirect(route('home'));
+        $response->assertRedirect(route('index'));
     }
 }
