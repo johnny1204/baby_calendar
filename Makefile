@@ -3,12 +3,15 @@ build:
 
 init:
 	cp ./.env.example .env
+	cp ./.env.testing.example .env.testing
 	make down
 	make build
 	rm -rf ./docker/mysql/data
 	make clean
 	docker-compose run --rm php php artisan key:generate
+	docker-compose run --rm php php artisan key:generate --env=testing
 	php artisan migrate
+	php artisan migrate --env=testing
 
 up:
 	docker-compose up
@@ -25,5 +28,5 @@ restart:
 	docker-compose restart
 
 test:
-	docker-compose run --rm web ./vendor/bin/phpstan analyse --memory_limit=-1
-	docker-compose run --rm web ./vendor/bin/phpunit
+	docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=-1
+	docker-compose run --rm php ./vendor/bin/phpunit

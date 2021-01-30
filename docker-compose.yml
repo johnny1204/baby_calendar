@@ -35,8 +35,6 @@ services:
       - db
     volumes:
       - .:/var/www/html
-    ports:
-      - "9000:9000"
 
   schemaspy-nginx:
     image: nginx:1.13.9-alpine

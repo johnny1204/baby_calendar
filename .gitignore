@@ -13,3 +13,7 @@ yarn-error.log
 /public/js
 /public/css
 _ide_helper.php
+.idea
+.env.testing
+.vscode
+xdebug.log
