@@ -19,8 +19,20 @@ class RegisterRequest extends FormRequest
     {
         return [
             'nickname' => ['required', 'string'],
-            'email' => ['required', 'string', 'unique:users'],
+            'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'string', 'confirmed'],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'nickname' => 'ニックネーム',
+            'email' => 'メールアドレス',
+            'password' => 'パスワード',
         ];
     }
 }

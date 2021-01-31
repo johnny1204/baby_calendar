@@ -4,13 +4,13 @@
         <div class="md:flex-2 border-solid border bg-white border-white rounded shadow-xl py-10 px-2">
             <h2 class="text-center">会員登録</h1>
             <section class="p-4">
-                <form method="POST" action="{{ route('register') }}">
+                <form method="POST" action="{{ route('register') }}" novalidate>
                     @csrf
                     <label>
-                        <input type="text" name="nickname" class="mb-3 border-solid border w-full border-gray-400 rounded p-2" placeholder="ニックネーム">
+                        <input type="text" name="nickname" class="mb-3 border-solid border w-full border-gray-400 rounded p-2" placeholder="ニックネーム" value="{{ old('nickname') }}">
                     </label>
                     <label>
-                        <input type="email" name="email" class="mb-3 border-solid border w-full border-gray-400 rounded p-2" placeholder="メールアドレス">
+                        <input type="email" name="email" class="mb-3 border-solid border w-full border-gray-400 rounded p-2" placeholder="メールアドレス" value="{{ old('email') }}">
                     </label>
                     <label>
                         <input type="password" name="password" class="mb-3 border-solid border w-full border-gray-400 rounded p-2" placeholder="パスワード（英数字をそれぞれ最低1文字を含んだ12文字以上）">
