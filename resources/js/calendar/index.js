@@ -3,10 +3,13 @@ import Vuetify from 'vuetify';
 import moment from 'moment';
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/dist/vuetify.min.css';
+
+const Vue = window.Vue;
+
 Vue.use(Vuetify);
 
-Vue.component('time-block', require('../components/TimeBlock.vue').default);
-Vue.component('modal', require('../components/Modal.vue').default);
+Vue.component('TimeBlock', require('../components/TimeBlock.vue').default);
+Vue.component('Modal', require('../components/Modal.vue').default);
 
 new Vue({
     el: '#app',
@@ -22,6 +25,9 @@ new Vue({
         today: moment(new Date()).format('YYYY-MM-DD'),
         focus: moment(new Date()).format('YYYY-MM-DD')
     }),
+    mounted() {
+        this.$refs.calendar.scrollToTime('08:00');
+    },
     methods: {
         openModal({ event }) {
             this.showModal = true;
@@ -46,8 +52,5 @@ new Vue({
         next() {
             this.$refs.calendar.next();
         }
-    },
-    mounted() {
-        this.$refs.calendar.scrollToTime('08:00');
     }
 });

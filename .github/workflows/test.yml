@@ -58,3 +58,4 @@ jobs:
         run: |
           ./vendor/bin/phpstan analyse --memory-limit=-1
           ./vendor/bin/phpunit --configuration phpunit.xml -d memory_limit=1
+          npm run lint
