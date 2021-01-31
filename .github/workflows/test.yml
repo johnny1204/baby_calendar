@@ -64,6 +64,7 @@ jobs:
           php -d memory_limit=-1 /usr/bin/composer install -n --prefer-dist
       - name: set application
         run: |
+          cp .env.example .env
           cp .env.ci.example .env.testing
           php artisan key:generate --env=testing
       - name: db migrate
