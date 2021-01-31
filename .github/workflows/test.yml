@@ -70,9 +70,7 @@ jobs:
       - name: db migrate
         run: php artisan migrate --env=testing
       - name: npm
-        run: |
-          npm install
-          npm run dev
+        run: npm install
       - name: run test
         run: |
           ./vendor/bin/phpstan analyse --memory-limit=-1
