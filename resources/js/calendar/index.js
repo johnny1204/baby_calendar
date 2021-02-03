@@ -1,10 +1,9 @@
 require('../app');
+import { Vue } from '../app';
 import Vuetify from 'vuetify';
 import moment from 'moment';
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/dist/vuetify.min.css';
-
-const Vue = window.Vue;
 
 Vue.use(Vuetify);
 
