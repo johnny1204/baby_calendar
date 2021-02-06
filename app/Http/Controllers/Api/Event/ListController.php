@@ -67,21 +67,18 @@ use Illuminate\Routing\Controller;
  *           ),
  *           @OA\Property(
  *             property="excretion",
- *             type="array",
+ *             type="object",
  *             description="排泄",
- *             @OA\Items(
- *               required={"small","big"},
- *               @OA\Property(
- *                 property="small",
- *                 type="boolean",
- *                 description="小"
- *               ),
- *               @OA\Property(
- *                 property="big",
- *                 type="boolean",
- *                 description="大"
- *               ),
- *             )
+ *             @OA\Property(
+ *               property="small",
+ *               type="boolean",
+ *               description="小"
+ *             ),
+ *             @OA\Property(
+ *               property="big",
+ *               type="boolean",
+ *               description="大"
+ *             ),
  *           ),
  *           @OA\Property(
  *             property="sleep",
