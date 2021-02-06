@@ -32,7 +32,8 @@ paths:
           required: true
           schema:
             type: string
-            format: '2021-02-06'
+            format: date
+            example: '2021-02-06'
         -
           $ref: '#/components/parameters/X-XSRF-TOKEN'
       responses:
@@ -42,8 +43,10 @@ paths:
             application/json:
               schema:
                 properties:
-                  result: { description: 結果, type: array, items: { required: [event_date, sleep], properties: { start_date: { description: イベント日, type: string, format: datetime, example: '2021-02-05 00:00:00' }, end_date: { description: イベント日, type: string, format: datetime, example: '2021-02-05 01:00:00' }, sleep: { description: 睡眠, type: boolean } }, type: object } }
+                  result: { description: 結果, type: array, items: { required: [start_date, end_date, event_name, sleep], properties: { start_date: { description: イベント日, type: string, format: datetime, example: '2021-02-05 00:00:00' }, end_date: { description: イベント日, type: string, format: datetime, example: '2021-02-05 01:00:00' }, event_name: { description: イベント名, type: boolean }, excretion: { description: 排泄, type: array, items: { properties: { small: { description: 小, type: boolean }, big: { description: 大, type: boolean } }, type: object } }, sleep: { description: 睡眠, type: boolean }, memo: { description: その他, type: string, example: メモ } }, type: object } }
                 type: object
+        '400':
+          description: パラメータ不足
         '500':
           description: 'Internet Server Error'
 components:

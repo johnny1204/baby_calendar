@@ -30,7 +30,7 @@ use Illuminate\Routing\Controller;
  *      @OA\Schema(
  *        type="string",
  *        format="date",
- *        format="2021-02-06",
+ *        example="2021-02-06",
  *      ),
  *   ),
  *   @OA\Parameter(
@@ -45,7 +45,7 @@ use Illuminate\Routing\Controller;
  *         property="result",
  *         description="結果",
  *         @OA\Items(
- *           required={"event_date","sleep"},
+ *           required={"start_date","end_date","event_name","excretion","sleep","memo"},
  *           @OA\Property(
  *             property="start_date",
  *             type="string",
@@ -61,13 +61,46 @@ use Illuminate\Routing\Controller;
  *             example="2021-02-05 01:00:00",
  *           ),
  *           @OA\Property(
+ *             property="event_name",
+ *             type="boolean",
+ *             description="イベント名",
+ *           ),
+ *           @OA\Property(
+ *             property="excretion",
+ *             type="array",
+ *             description="排泄",
+ *             @OA\Items(
+ *               required={"small","big"},
+ *               @OA\Property(
+ *                 property="small",
+ *                 type="boolean",
+ *                 description="小"
+ *               ),
+ *               @OA\Property(
+ *                 property="big",
+ *                 type="boolean",
+ *                 description="大"
+ *               ),
+ *             )
+ *           ),
+ *           @OA\Property(
  *             property="sleep",
  *             type="boolean",
  *             description="睡眠",
  *           ),
+ *           @OA\Property(
+ *             property="memo",
+ *             type="string",
+ *             description="その他",
+ *             example="メモ"
+ *           ),
  *         )
  *       )
  *     )
+ *   ),
+ *   @OA\Response(
+ *     response="400",
+ *     description="パラメータ不足",
  *   ),
  *   @OA\Response(
  *     response="500",
