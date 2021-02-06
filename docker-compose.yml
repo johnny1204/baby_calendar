@@ -63,3 +63,13 @@ services:
     working_dir: "/app"
     links:
       - db
+
+  redoc:
+    image: redocly/redoc
+    ports:
+      - "8003:80"
+    volumes:
+      - ./openapi.yml:/usr/share/nginx/html/openapi.yml
+    environment:
+      PAGE_TITLE: baby_diary api
+      SPEC_URL: openapi.yml

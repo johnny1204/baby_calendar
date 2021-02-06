@@ -1,0 +1,69 @@
+openapi: 3.0.0
+info:
+  title: 'baby diary api'
+  version: v1.0
+servers:
+  -
+    url: 'http://localhost:8003'
+    description: 'local open-api url'
+  -
+    url: 'http://localhost'
+    description: 'local baby diary url'
+paths:
+  /api/events/:
+    get:
+      tags:
+        - カレンダーイベント
+      summary: カレンダーイベント取得
+      parameters:
+        -
+          name: date_from
+          in: query
+          description: 取得開始日
+          required: true
+          schema:
+            type: string
+            format: date
+            example: '2021-02-05'
+        -
+          name: date_to
+          in: query
+          description: 取得終了日
+          required: true
+          schema:
+            type: string
+            format: '2021-02-06'
+        -
+          $ref: '#/components/parameters/X-XSRF-TOKEN'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                properties:
+                  result: { description: 結果, type: array, items: { required: [event_date, sleep], properties: { start_date: { description: イベント日, type: string, format: datetime, example: '2021-02-05 00:00:00' }, end_date: { description: イベント日, type: string, format: datetime, example: '2021-02-05 01:00:00' }, sleep: { description: 睡眠, type: boolean } }, type: object } }
+                type: object
+        '500':
+          description: 'Internet Server Error'
+components:
+  parameters:
+    X-XSRF-TOKEN:
+      name: X-XSRF-TOKEN
+      in: header
+      description: XSRFトークン
+      required: true
+      schema:
+        type: string
+        default: '{{token}}'
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      name: laravel_session
+      in: cookie
+tags:
+  -
+    name: カレンダーイベント
+externalDocs:
+  description: 'Find out more about Swagger-PHP'
+  url: 'https://zircote.github.io/swagger-php/Getting-started.html'

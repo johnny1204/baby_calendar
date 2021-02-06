@@ -30,13 +30,12 @@
                     </label>
                 </li>
                 <li class="flex content-around p-1 mb-3">
-                    <span class="label w-20 p-1" for="sleep">排泄</span>
+                    <span class="label w-20 p-1">排泄</span>
                     <label>
                         <input
                             v-model="smallChecked"
                             type="checkbox"
                             class="w-5 p-1"
-                            name="sleep"
                         />
                         尿
                     </label>
@@ -45,7 +44,6 @@
                             v-model="bigChecked"
                             type="checkbox"
                             class="w-5 p-1"
-                            name="sleep"
                         />
                         便
                     </label>
