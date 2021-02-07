@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y git zip unzip vim
 
 RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo_mysql pdo_pgsql
 
-RUN pecl install xdebug-2.9.8 \
+RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
 WORKDIR /var/www/html
