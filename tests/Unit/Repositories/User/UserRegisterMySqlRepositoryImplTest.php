@@ -47,7 +47,7 @@ class UserRegisterMySqlRepositoryImplTest extends TestCase
     public function getEloquentUserById()
     {
         /** @var User $factory_user */
-        $factory_user = factory(User::class)->create([
+        $factory_user = User::factory()->create([
             'nickname' => 'テストニックネーム',
             'email'    => 'test@example.com',
             'password' => Hash::make('password1234')
