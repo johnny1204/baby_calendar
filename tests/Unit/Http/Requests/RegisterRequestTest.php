@@ -4,6 +4,7 @@ namespace Unit\Http\Requests;
 
 use App\Http\Requests\User\RegisterRequest;
 use App\Models\User;
+use Database\Factories\UserFactory;
 use Tests\TestCase;
 
 /**
@@ -20,7 +21,7 @@ class RegisterRequestTest extends TestCase
      */
     public function rules(array $inputs, array $messages)
     {
-        factory(User::class)->create(['email' => 'multiple@example.com']);
+        User::factory()->create(['email' => 'multiple@example.com']);
         $request = new RegisterRequest;
         $validator = validator($inputs, $request->rules(), $request->messages(), $request->attributes());
         if (empty($messages)) {
