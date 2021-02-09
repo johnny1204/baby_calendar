@@ -8,10 +8,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * Class UserRegisterMySqlRepositoryImpl
+ * Class UserRegisterSqlRepositoryImpl
  * @package App\Repositories\User
  */
-class UserRegisterMySqlRepositoryImpl implements UserRegisterRepository
+class UserRegisterSqlRepositoryImpl implements UserRegisterRepository
 {
     /**
      * @param RegisterUserEntity $user_entity

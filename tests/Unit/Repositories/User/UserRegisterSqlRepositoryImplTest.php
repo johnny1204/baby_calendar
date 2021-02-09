@@ -6,7 +6,7 @@ use App\Domains\User\RegisterUserEntity;
 use App\Domains\ValueObjects\User\NickName;
 use App\Domains\ValueObjects\User\Password;
 use App\Models\User;
-use App\Repositories\User\UserRegisterMySqlRepositoryImpl;
+use App\Repositories\User\UserRegisterSqlRepositoryImpl;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 use ValueObjects\Web\EmailAddress;
@@ -15,9 +15,9 @@ use ValueObjects\Web\EmailAddress;
  * Class UserRegisterMySqlRepositoryImplTest
  * @package Tests\Unit\Repositories\User
  *
- * @coversDefaultClass \App\Repositories\User\UserRegisterMySqlRepositoryImpl
+ * @coversDefaultClass \App\Repositories\User\UserRegisterSqlRepositoryImpl
  */
-class UserRegisterMySqlRepositoryImplTest extends TestCase
+class UserRegisterSqlRepositoryImplTest extends TestCase
 {
     /**
      * @test
@@ -25,7 +25,7 @@ class UserRegisterMySqlRepositoryImplTest extends TestCase
      */
     public function register()
     {
-        $repo = new UserRegisterMySqlRepositoryImpl;
+        $repo = new UserRegisterSqlRepositoryImpl;
         $user_id = $repo->register(new RegisterUserEntity(
             new NickName('ニックネーム'),
             new EmailAddress('test@example.com'),
@@ -52,7 +52,7 @@ class UserRegisterMySqlRepositoryImplTest extends TestCase
             'email'    => 'test@example.com',
             'password' => Hash::make('password1234')
         ]);
-        $repo = new UserRegisterMySqlRepositoryImpl;
+        $repo = new UserRegisterSqlRepositoryImpl;
         $user = $repo->getEloquentUserById($factory_user->id);
 
         $this->assertEquals('テストニックネーム', $user->nickname, '取得したユーザーのnicknameが同じであること');
