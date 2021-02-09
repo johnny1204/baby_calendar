@@ -30,3 +30,6 @@ restart:
 test:
 	docker-compose run --rm php ./vendor/bin/phpstan analyse --memory-limit=-1
 	docker-compose run --rm php ./vendor/bin/phpunit
+
+redoc:
+	docker-compose run --rm php ./vendor/bin/openapi ./app/Http -o openapi.yml
