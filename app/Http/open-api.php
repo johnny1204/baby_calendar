@@ -14,13 +14,8 @@
  * )
  *
  * @OA\Server(
- *     url="http://localhost:8003",
- *     description="local open-api url"
- * )
- *
- * @OA\Server(
- *     url="http://localhost",
- *     description="local baby diary url"
+ *     url="http://localhost:4010",
+ *     description="local api mock url"
  * )
  *
  * @OA\SecurityScheme(

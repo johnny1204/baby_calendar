@@ -3,10 +3,9 @@ info:
   title: 'baby diary api'
   version: v1.0
 servers:
-  - url: 'http://localhost:8003'
-    description: 'local open-api url'
-  - url: 'http://localhost'
-    description: 'local baby diary url'
+  -
+    url: 'http://localhost:4010'
+    description: 'local api mock url'
 paths:
   /api/events/:
     get:
@@ -14,7 +13,8 @@ paths:
         - カレンダーイベント
       summary: カレンダーイベント取得
       parameters:
-        - name: date_from
+        -
+          name: date_from
           in: query
           description: 取得開始日
           required: true
@@ -22,7 +22,8 @@ paths:
             type: string
             format: date
             example: '2021-02-05'
-        - name: date_to
+        -
+          name: date_to
           in: query
           description: 取得終了日
           required: true
@@ -30,7 +31,16 @@ paths:
             type: string
             format: date
             example: '2021-02-06'
-        - $ref: '#/components/parameters/X-XSRF-TOKEN'
+        -
+          name: child_id
+          in: query
+          description: 子どもID
+          required: true
+          schema:
+            type: int
+            example: 23
+        -
+          $ref: '#/components/parameters/X-XSRF-TOKEN'
       responses:
         '200':
           description: success
@@ -38,60 +48,7 @@ paths:
             application/json:
               schema:
                 properties:
-                  result:
-                    {
-                      description: 結果,
-                      type: array,
-                      items:
-                        {
-                          required:
-                            [
-                              start_date,
-                              end_date,
-                              event_name,
-                              excretion,
-                              sleep,
-                              memo
-                            ],
-                          properties:
-                            {
-                              start_date:
-                                {
-                                  description: イベント日,
-                                  type: string,
-                                  format: datetime,
-                                  example: '2021-02-05 00:00:00'
-                                },
-                              end_date:
-                                {
-                                  description: イベント日,
-                                  type: string,
-                                  format: datetime,
-                                  example: '2021-02-05 01:00:00'
-                                },
-                              event_name:
-                                { description: イベント名, type: boolean },
-                              excretion:
-                                {
-                                  description: 排泄,
-                                  properties:
-                                    {
-                                      small: { description: 小, type: boolean },
-                                      big: { description: 大, type: boolean }
-                                    },
-                                  type: object
-                                },
-                              sleep: { description: 睡眠, type: boolean },
-                              memo:
-                                {
-                                  description: その他,
-                                  type: string,
-                                  example: メモ
-                                }
-                            },
-                          type: object
-                        }
-                    }
+                  result: { description: 結果, type: array, items: { required: [child_id, start_date, end_date, event_name, excretion, sleep, memo], properties: { start_date: { description: イベント日, type: string, format: datetime, example: '2021-02-05 00:00:00' }, end_date: { description: イベント日, type: string, format: datetime, example: '2021-02-05 01:00:00' }, event_name: { description: イベント名, type: boolean }, excretion: { description: 排泄, properties: { small: { description: 小, type: boolean }, big: { description: 大, type: boolean } }, type: object }, sleep: { description: 睡眠, type: boolean }, memo: { description: その他, type: string, example: メモ } }, type: object } }
                 type: object
         '400':
           description: パラメータ不足
@@ -113,7 +70,8 @@ components:
       name: laravel_session
       in: cookie
 tags:
-  - name: カレンダーイベント
+  -
+    name: カレンダーイベント
 externalDocs:
   description: 'Find out more about Swagger-PHP'
   url: 'https://zircote.github.io/swagger-php/Getting-started.html'
