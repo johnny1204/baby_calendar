@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\DiaryContent
@@ -34,8 +36,34 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|DiaryContent whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DiaryContent whereUserId($value)
  * @mixin Eloquent
+ * @property-read \App\Models\Child $child
+ * @property-read \App\Models\User $user
  */
 class DiaryContent extends Model
 {
-    //
+    use HasFactory;
+
+    /** @var array */
+    protected $guarded = ['id'];
+
+    /** @var array */
+    protected $casts = [
+        'evented_at' => 'datetime'
+    ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function child(): BelongsTo
+    {
+        return $this->belongsTo(Child::class);
+    }
 }

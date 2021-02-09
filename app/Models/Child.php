@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Child
@@ -24,8 +27,34 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Child whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Child whereUserId($value)
  * @mixin Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DiaryContent[] $diaryContents
+ * @property-read int|null $diary_contents_count
+ * @property-read \App\Models\User $user
  */
 class Child extends Model
 {
-    //
+    use HasFactory;
+
+    /** @var array */
+    protected $fillable = [
+        'user_id', 'nickname'
+    ];
+
+    // Relations
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function diaryContents(): HasMany
+    {
+        return $this->hasMany(DiaryContent::class);
+    }
 }

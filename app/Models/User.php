@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Domains\ValueObjects\Diary\ChildId;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -35,6 +37,10 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Child[] $children
+ * @property-read int|null $children_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\DiaryContent[] $diaryContents
+ * @property-read int|null $diary_contents_count
  */
 class User extends Authenticatable
 {
@@ -66,4 +72,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Relations
+
+    /**
+     * @return HasMany
+     */
+    public function children(): HasMany
+    {
+        return $this->hasMany(Child::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function diaryContents(): HasMany
+    {
+        return $this->hasMany(DiaryContent::class);
+    }
 }
