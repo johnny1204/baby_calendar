@@ -18,12 +18,12 @@ class ContentService
     {
         /** @var ContentRepository $repository */
         $repository = app(ContentRepository::class);
-        $result = $repository->fetchEventsByBetweenDate(
+        $results = $repository->fetchEventsByBetweenDate(
             ChildId::fromNative($params['child_id']),
             Carbon::parse($params['date_from']),
             Carbon::parse($params['date_to'])
         );
         
-        return ['result' => $result];
+        return ['result' => $results->toArray()];
     }
 }
