@@ -46,7 +46,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Create a new member$member instance after a valid registration.
      *
      * @param  array  $data
      */
@@ -56,11 +56,11 @@ class RegisterController extends Controller
         $service = app(RegisterService::class);
         $user_id = $service->createUser($request->all());
 
-        $user = $service->getLoginUser($user_id);
-        event(new Registered($user));
+        $member = $service->getLoginUser($user_id);
+        event(new Registered($member));
 
-        $this->guard()->login($user);
+        $this->guard()->login($member);
 
-        return $this->registered($request, $user) ?: redirect($this->redirectPath());
+        return $this->registered($request, $member) ?: redirect($this->redirectPath());
     }
 }
