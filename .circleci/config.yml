@@ -1,7 +1,107 @@
-version: 2
+version: 2.1
+orbs:
+  slack: circleci/slack@4.3.1
+executors:
+  test-with-db:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/php:7.4-node-browsers
+      - image: circleci/mariadb:latest-ram
+        environment:
+          MYSQL_USER: db_user
+          MYSQL_PASSWORD: db_password
+          MYSQL_DATABASE: test_db
+          MYSQL_ROOT_PASSWORD: root
+          DB_PORT: 3306
+          DB_HOST: db
+commands:
+  install-dockerize:
+    steps:
+      - run:
+          name: Install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.6.1
+  setup-server:
+    steps:
+      - run:
+          command: |
+            sudo docker-php-ext-install pdo_mysql bcmath
+  restore-composer-cache:
+    steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "composer.lock" }}
+            - v1-dependencies-
+  composer-install:
+    steps:
+      - run:
+          name: composerインストール
+          command: composer install -n --prefer-dist
+  save-composer-cache:
+    steps:
+      - save_cache:
+          name: composerキャッシュ保存
+          key: v1-bundle-{{ checksum "composer.lock" }}
+          paths:
+            - ./vendor
+  wait-db:
+    steps:
+      - run:
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+  tests:
+    steps:
+      - run:
+          name: setup env
+          command: |
+            cp .env.example .env
+            cp .env.ci.example .env.testing
+            php artisan key:generate --env=testing
+      - run:
+          name: migrate db
+          command: php artisan migrate --env=testing
+      - run:
+          name: php stan
+          command: ./vendor/bin/phpstan analyse --memory-limit=-1
+      - run:
+          name: php unit
+          command: ./vendor/bin/phpunit --configuration phpunit.xml -d memory_limit=1
+  slack-notify:
+    steps:
+      - slack/notify:
+          event: pass
+          template: basic_success_1
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
 jobs:
   build:
-    docker:
-      - image: cimg/node:lts
+    executor: test-with-db
     steps:
-      - run: echo "hello world"
+      - install-dockerize
+      - checkout
+      - setup-server
+      - restore-composer-cache
+      - composer-install
+      - save-composer-cache
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  test:
+    executor: test-with-db
+    steps:
+      - attach_workspace:
+          at: .
+      - setup-server
+      - wait-db
+      - tests
+      - slack-notify
+workflows:
+  version: 2
+  build_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
