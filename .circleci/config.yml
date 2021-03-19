@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   slack: circleci/slack@4.3.1
-  chatwork: guitarrapc/chatwork@0.0.1
+  chatwork: guitarrapc/chatwork@0.0.2
 executors:
   test-with-db:
     working_directory: ~/repo
