@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   slack: circleci/slack@4.3.1
+  chatwork: guitarrapc/chatwork@0.0.1
 executors:
   test-with-db:
     working_directory: ~/repo
@@ -74,6 +75,16 @@ commands:
       - slack/notify:
           event: fail
           template: basic_fail_1
+  chatwork-notify:
+    steps:
+      - chatwork/notify:
+          message: Job Succeeded.
+          room_id: ${CHATWORK_ROOM_ID}
+          when: on_success
+      - chatwork/notify:
+          message: Job Failed.
+          room_id: ${CHATWORK_ROOM_ID}
+          when: on_fail
 jobs:
   build:
     executor: test-with-db
