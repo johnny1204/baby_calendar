@@ -1,3 +1,4 @@
+# circleci config validate
 version: 2.1
 orbs:
   slack: circleci/slack@4.3.1
