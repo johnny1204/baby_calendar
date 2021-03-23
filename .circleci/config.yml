@@ -29,37 +29,29 @@ commands:
       - run:
           command: |
             sudo docker-php-ext-install pdo_mysql bcmath
-  restore-composer-cache:
+  composer:
     steps:
       - restore_cache:
           keys:
             - composer-v1-{{ checksum "composer.lock" }}
             - composer-v1-
-  composer-install:
-    steps:
       - run:
           name: composerインストール
           command: composer install -n --prefer-dist
-  save-composer-cache:
-    steps:
       - save_cache:
           name: composerキャッシュ保存
           key: composer-v1-{{ checksum "composer.lock" }}
           paths:
             - ./vendor
-  restore-node-modules-cache:
+  node_modules:
     steps:
       - restore_cache:
           keys:
             - node-v1-{{ checksum "yarn.lock" }}
             - node-v1
-  install-node-modules:
-    steps:
       - run:
           name: node_modules install
           command: yarn
-  save-node-modules-cache:
-    steps:
       - save_cache:
           name: node_modules依存関係キャッシュ保存
           key: node-v1-{{ checksum "yarn.lock" }}
@@ -86,6 +78,15 @@ commands:
       - run:
           name: php unit
           command: ./vendor/bin/phpunit --configuration phpunit.xml -d memory_limit=1
+      - run:
+          name: カバレッジリポート生成
+          command: ./vendor/bin/phpunit --testdox-xml test_results/phpunit/result.xml --coverage-html=coverage
+      - store_test_results:
+          path: test_results
+      - store_artifacts:
+          path: test_results
+      - store_artifacts:
+          path: coverage
   slack-notify:
     steps:
       - slack/notify:
@@ -111,12 +112,8 @@ jobs:
       - install-dockerize
       - checkout
       - setup-server
-      - restore-composer-cache
-      - composer-install
-      - save-composer-cache
-      - restore-node-modules-cache
-      - install-node-modules
-      - save-node-modules-cache
+      - composer
+      - node_modules
       - persist_to_workspace:
           root: .
           paths:
