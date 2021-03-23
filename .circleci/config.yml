@@ -33,8 +33,8 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "composer.lock" }}
-            - v1-dependencies-
+            - composer-v1-{{ checksum "composer.lock" }}
+            - composer-v1-
   composer-install:
     steps:
       - run:
@@ -44,9 +44,27 @@ commands:
     steps:
       - save_cache:
           name: composerキャッシュ保存
-          key: v1-bundle-{{ checksum "composer.lock" }}
+          key: composer-v1-{{ checksum "composer.lock" }}
           paths:
             - ./vendor
+  restore-node-modules-cache:
+    steps:
+      - restore_cache:
+          keys:
+            - node-v1-{{ checksum "yarn.lock" }}
+            - node-v1
+  install-node-modules:
+    steps:
+      - run:
+          name: node_modules install
+          command: yarn
+  save-node-modules-cache:
+    steps:
+      - save_cache:
+          name: node_modules依存関係キャッシュ保存
+          key: node-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
   wait-db:
     steps:
       - run:
@@ -96,6 +114,9 @@ jobs:
       - restore-composer-cache
       - composer-install
       - save-composer-cache
+      - restore-node-modules-cache
+      - install-node-modules
+      - save-node-modules-cache
       - persist_to_workspace:
           root: .
           paths:
@@ -109,7 +130,7 @@ jobs:
       - wait-db
       - tests
       - slack-notify
-      - chatwork-notify
+      # - chatwork-notify
 workflows:
   version: 2
   build_test:
