@@ -17,3 +17,4 @@ _ide_helper.php
 .env.testing
 .vscode
 xdebug.log
+/docker/minio/data

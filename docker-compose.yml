@@ -10,6 +10,11 @@ services:
     depends_on:
       - php
       - db
+    # https://stackoverflow.com/questions/47577490/resolve-container-name-in-extra-hosts-option-in-docker-compose
+    networks:
+      web-network:
+        aliases:
+          - image.${APP_DOMAIN}
 
   db:
     image: mariadb:10.5
@@ -34,6 +39,8 @@ services:
       - db
     volumes:
       - .:/var/www/html
+    networks:
+      - web-network
 
   schemaspy-nginx:
     image: nginx:1.13.9-alpine
@@ -72,3 +79,28 @@ services:
     environment:
       PAGE_TITLE: baby_diary api
       SPEC_URL: openapi.yml
+
+  minio:
+    image: minio/minio:latest
+    ports: 
+      - "9000:9000"
+    environment:
+      - MINIO_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
+      - MINIO_SECRET_KEY=${AWS_SECRET_ACCESS_KEY}
+    entrypoint: sh
+    command: -c "
+      mkdir -p /data/.minio.sys/buckets;
+      cp -r /policies/* /data/.minio.sys/;
+      cp -r /export/* /data/;
+      /usr/bin/minio server /data;"
+    volumes:
+      - ./docker/minio/data:/data
+      - ./docker/minio/export:/export
+      - ./docker/minio/config:/root/.minio
+      - ./docker/minio/policies:/policies
+    networks:
+      web-network:
+
+networks:
+  web-network:
+    driver: bridge
