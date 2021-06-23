@@ -48,6 +48,7 @@ class RegisterController extends Controller
     /**
      * Create a new member$member instance after a valid registration.
      *
+     * @param RegisterRequest $request
      * @param  array  $data
      */
     protected function register(RegisterRequest $request)
@@ -57,7 +58,7 @@ class RegisterController extends Controller
         $user_id = $service->createUser($request->all());
 
         $member = $service->getLoginUser($user_id);
-        
+
         event(new Registered($member));
 
         $this->guard()->login($member);
