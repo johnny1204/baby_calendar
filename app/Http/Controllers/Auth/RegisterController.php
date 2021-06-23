@@ -57,6 +57,7 @@ class RegisterController extends Controller
         $user_id = $service->createUser($request->all());
 
         $member = $service->getLoginUser($user_id);
+        
         event(new Registered($member));
 
         $this->guard()->login($member);

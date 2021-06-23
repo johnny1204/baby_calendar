@@ -1,0 +1,40 @@
+name: test
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    # https://docs.github.com/ja/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: cache composer
+        id: vendor-cache
+        uses: actions/cache@v1
+        with:
+          path: ./vendor
+          key: ${{ runner.os }}--composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+        with:
+          path: ./node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: set up php7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+      - name: compose install
+        run: |
+          php -d memory_limit=-1 /usr/bin/composer install -n --prefer-dist
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+      - name: analyse
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+          run: ./vendor/bin/phpstan analyse --memory-limit=-1 --error-format=raw --no-progress | reviewdog -reporter=github-pr-review -f=phpstan
