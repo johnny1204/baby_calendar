@@ -48,7 +48,7 @@ class RegisterController extends Controller
     /**
      * Create a new member$member instance after a valid registration.
      *
-     * @param RegisterRequest $request
+     * @param RegisterRequest $reques
      * @param  array  $data
      */
     protected function register(RegisterRequest $request)
