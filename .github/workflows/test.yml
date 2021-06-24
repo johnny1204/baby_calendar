@@ -3,6 +3,7 @@ name: test
 on:
   push:
     branches:
+      - feature/reviewdog_larastan
       - master
 
 jobs:
