@@ -29,5 +29,5 @@ jobs:
           reviewdog_version: latest
       - name: analyse
         env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./vendor/bin/phpstan analyse --memory-limit=-1 --error-format=raw --no-progress | reviewdog -reporter=github-pr-review -f=phpstan

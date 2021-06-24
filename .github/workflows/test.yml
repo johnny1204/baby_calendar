@@ -3,7 +3,6 @@ name: test
 on:
   push:
     branches:
-      - feature/reviewdog_larastan
       - master
 
 jobs:
@@ -83,6 +82,3 @@ jobs:
       - name: run test
         run: |
           ./vendor/bin/phpunit --configuration phpunit.xml -d memory_limit=1 --coverage-html coverage
-      - uses: actions/upload-artifact@v2
-        with:
-          path: coverage/*
