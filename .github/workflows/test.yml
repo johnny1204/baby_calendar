@@ -84,4 +84,5 @@ jobs:
         run: |
           ./vendor/bin/phpunit --configuration phpunit.xml -d memory_limit=1 --coverage-html coverage
       - uses: actions/upload-artifact@v2
-        with: coverage/*
+        with:
+          path: coverage/*
