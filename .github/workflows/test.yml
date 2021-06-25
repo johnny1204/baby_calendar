@@ -82,13 +82,13 @@ jobs:
             php:
               - '**.yml'
       - run: |
-          run_phpunit=`${{github.event_name}} == 'push' && ((${{github.ref}} == 'refs/heads/master' || ${{github.ref}} == 'refs/heads/develop') || ${{steps.changes.outputs.php}} == 'true')`
+          run_phpunit=`${{ github.event_name }} == 'push' && ((${{ github.ref }} == 'refs/heads/master' || ${{ github.ref }} == 'refs/heads/develop') || ${{ steps.changes.outputs.php }} == 'true')`
           echo "::set-output name=RUN_PHPUNIT::$run_phpunit"
       # PHPUnit
-      - name: Run PHPUnit
-        # if: ${{RUN_PHPUNIT}} == ''
-        # run: ./vendor/bin/phpunit --log-junit reports/results.xml --configuration ./phpunit.xml -d memory_limit=-1
-        run: echo ${{RUN_PHPUNIT}}
+      # - name: Run PHPUnit
+      #   # if: ${{RUN_PHPUNIT}} == ''
+      #   # run: ./vendor/bin/phpunit --log-junit reports/results.xml --configuration ./phpunit.xml -d memory_limit=-1
+      #   run: echo ${{ RUN_PHPUNIT }}
       # - name: npm
       #   run: npm install
       # - name: run test
