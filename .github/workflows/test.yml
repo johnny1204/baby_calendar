@@ -94,11 +94,11 @@ jobs:
            # Slack 通知用(成功時)
       - name: Slack Notification Success
         if: ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT == '0' }} && success()
-        uses: rtCamp/action-slack-notify@v2.0.2
+        run: echo 1
       # Slack 通知用(失敗時)
       - name: Slack Notification Failure
         if: ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT == '0' }} && failure()
-        uses: rtCamp/action-slack-notify@v2.0.2
+        run: echo 1
       # - name: npm
       #   run: npm install
       # - name: run test
