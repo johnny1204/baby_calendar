@@ -79,7 +79,6 @@ jobs:
         id: changes
         with:
           base: ${{ github.ref }}
-          ref: ${{ 'refs/heads/' }}${{ github.sha }}
           filters: |
             php:
               - '**.php'
