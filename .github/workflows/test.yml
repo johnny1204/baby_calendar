@@ -91,6 +91,14 @@ jobs:
         # run: ./vendor/bin/phpunit --log-junit reports/results.xml --configuration ./phpunit.xml -d memory_limit=-1
         if: ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT == '0' }}
         run: echo ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT }}
+           # Slack 通知用(成功時)
+      - name: Slack Notification Success
+        if: ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT == '0' && success() }}
+        uses: rtCamp/action-slack-notify@v2.0.2
+      # Slack 通知用(失敗時)
+      - name: Slack Notification Failure
+        if: ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT == '0' && failure() }}
+        uses: rtCamp/action-slack-notify@v2.0.2
       # - name: npm
       #   run: npm install
       # - name: run test
