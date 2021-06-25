@@ -78,20 +78,20 @@ jobs:
       - uses: dorny/paths-filter@v2
         id: changes
         with:
+          ref: ${{ github.head_ref }}
           filters: |
             php:
               - '**.php'
-          #ref: ${{ github.head_ref }}
       - id: status_run_phpunit
         run: |
-          run_phpunit=`test "${{ github.event_name }}" = "pus" && ((test "${{ github.ref }}" = "refs/heads/master" || test "${{ github.ref }}" = "refs/heads/develop") || "${{ steps.changes.outputs.php }}" = "true"); echo $?`
+          run_phpunit=`test "${{ github.event_name }}" = "push" && ((test "${{ github.ref }}" = "refs/heads/master" || test "${{ github.ref }}" = "refs/heads/develop") || "${{ steps.changes.outputs.php }}" = "true"); echo $?`
           echo "::set-output name=RUN_PHPUNIT::$run_phpunit"
       # PHPUnit
       - name: Run PHPUnit
         # if: ${{RUN_PHPUNIT}} == ''
         # run: ./vendor/bin/phpunit --log-junit reports/results.xml --configuration ./phpunit.xml -d memory_limit=-1
         if: steps.status_run_phpunit.outputs.RUN_PHPUNIT == '0'
-        run: echo ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT }}
+        run: echo ${{ github.head_ref }}
            # Slack 通知用(成功時)
       - name: Slack Notification Success
         if: steps.status_run_phpunit.outputs.RUN_PHPUNIT == '0' && job.status == 'success'
