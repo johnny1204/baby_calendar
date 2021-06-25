@@ -29,52 +29,52 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: cache composer
-        id: vendor-cache
-        uses: actions/cache@v1
-        with:
-          path: ./vendor
-          key: ${{ runner.os }}--composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ./node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: set up php7.4
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.4'
-      - name: Verify MariaDB connection
-        env:
-          PORT: ${{ job.services.mariadb.ports[3306] }}
-        run: |
-          while ! mysqladmin ping -h "127.0.0.1" -P"$PORT" --silent; do
-            sleep 1
-          done
-      # デバッグ用
-      - name: debug
-        run: php -i
-      - name: compose install
-        run: |
-          php -d memory_limit=-1 /usr/bin/composer install -n --prefer-dist
-      - name: set application
-        run: |
-          cp .env.example .env
-          cp .env.ci.example .env.testing
-          php artisan key:generate --env=testing
-      - name: db migrate
-        run: php artisan migrate --env=testing
+      # - name: cache composer
+      #   id: vendor-cache
+      #   uses: actions/cache@v1
+      #   with:
+      #     path: ./vendor
+      #     key: ${{ runner.os }}--composer-${{ hashFiles('**/composer.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-composer-
+      # - uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '14'
+      # - name: Cache node modules
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: cache-node-modules
+      #   with:
+      #     path: ./node_modules
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-build-${{ env.cache-name }}-
+      #       ${{ runner.os }}-build-
+      #       ${{ runner.os }}-
+      # - name: set up php7.4
+      #   uses: shivammathur/setup-php@v2
+      #   with:
+      #     php-version: '7.4'
+      # - name: Verify MariaDB connection
+      #   env:
+      #     PORT: ${{ job.services.mariadb.ports[3306] }}
+      #   run: |
+      #     while ! mysqladmin ping -h "127.0.0.1" -P"$PORT" --silent; do
+      #       sleep 1
+      #     done
+      # # デバッグ用
+      # - name: debug
+      #   run: php -i
+      # - name: compose install
+      #   run: |
+      #     php -d memory_limit=-1 /usr/bin/composer install -n --prefer-dist
+      # - name: set application
+      #   run: |
+      #     cp .env.example .env
+      #     cp .env.ci.example .env.testing
+      #     php artisan key:generate --env=testing
+      # - name: db migrate
+      #   run: php artisan migrate --env=testing
       - uses: dorny/paths-filter@v2
         id: changes
         with:
@@ -82,7 +82,7 @@ jobs:
             php:
               - '**.yml'
       - run: |
-          run_phpunit=`${{ github.event_name }} == 'push' && ((${{ github.ref }} == 'refs/heads/master' || ${{ github.ref }} == 'refs/heads/develop') || ${{ steps.changes.outputs.php }} == 'true')`
+          run_phpunit=`echo ${{ github.event_name }} == 'push' && ((${{ github.ref }} == 'refs/heads/master' || ${{ github.ref }} == 'refs/heads/develop') || ${{ steps.changes.outputs.php }} == 'true')`
           echo "::set-output name=RUN_PHPUNIT::$run_phpunit"
       # PHPUnit
       # - name: Run PHPUnit
