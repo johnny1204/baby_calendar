@@ -82,7 +82,7 @@ jobs:
             php:
               - '**.yml'
       - run: |
-          run_phpunit=`echo ${{ github.event_name }} == 'push' && ((${{ github.ref }} == 'refs/heads/master' || ${{ github.ref }} == 'refs/heads/develop') || ${{ steps.changes.outputs.php }} == 'true')`
+          run_phpunit=`test "${{ github.event_name }}" = "push" && ((test "${{ github.ref }}" = "refs/heads/master" || test "${{ github.ref }}" = "refs/heads/develop") || "${{ steps.changes.outputs.php }}" = "true"); echo $?`
           echo "::set-output name=RUN_PHPUNIT::$run_phpunit"
       # PHPUnit
       # - name: Run PHPUnit
