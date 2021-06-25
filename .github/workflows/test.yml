@@ -3,12 +3,12 @@ name: test
 on:
   push:
     branches:
-      - master
-  push:
-    branches:
       - 'feature/reviewdog_larastan'
     paths:
       - '**.php'
+  push:
+    branches:
+      - master
 
 jobs:
   test:
