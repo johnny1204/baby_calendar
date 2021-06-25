@@ -86,9 +86,9 @@ jobs:
           echo "::set-output name=RUN_PHPUNIT::$run_phpunit"
       # PHPUnit
       - name: Run PHPUnit
-        if: ${{RUN_PHPUNIT}}
-        working-directory: ./server
-        run: ./vendor/bin/phpunit --log-junit reports/results.xml --configuration ./phpunit.xml -d memory_limit=-1
+        # if: ${{RUN_PHPUNIT}} == ''
+        # run: ./vendor/bin/phpunit --log-junit reports/results.xml --configuration ./phpunit.xml -d memory_limit=-1
+        run: echo ${{RUN_PHPUNIT}}
       # - name: npm
       #   run: npm install
       # - name: run test
