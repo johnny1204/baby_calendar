@@ -75,6 +75,20 @@ jobs:
           php artisan key:generate --env=testing
       - name: db migrate
         run: php artisan migrate --env=testing
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            php:
+              - '**.yml'
+      - run: |
+          run_phpunit=`${{github.event_name}} == 'push' && ((${{github.ref}} == 'refs/heads/master' || ${{github.ref}} == 'refs/heads/develop') || ${{steps.changes.outputs.php}} == 'true')`
+          echo "::set-output name=RUN_PHPUNIT::$run_phpunit"
+      # PHPUnit
+      - name: Run PHPUnit
+        if: ${{RUN_PHPUNIT}}
+        working-directory: ./server
+        run: ./vendor/bin/phpunit --log-junit reports/results.xml --configuration ./phpunit.xml -d memory_limit=-1
       # - name: npm
       #   run: npm install
       # - name: run test
@@ -82,6 +96,6 @@ jobs:
       #     ./vendor/bin/phpstan analyse --memory-limit=-1
       #     ./vendor/bin/phpunit --configuration phpunit.xml -d memory_limit=1
       #     npm run lint
-      - name: run test
-        run: |
-          ./vendor/bin/phpunit --configuration phpunit.xml -d memory_limit=1 --coverage-html coverage
+      # - name: run test
+      #   run: |
+      #     ./vendor/bin/phpunit --configuration phpunit.xml -d memory_limit=1 --coverage-html coverage
