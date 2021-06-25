@@ -89,6 +89,7 @@ jobs:
       - name: Run PHPUnit
         # if: ${{RUN_PHPUNIT}} == ''
         # run: ./vendor/bin/phpunit --log-junit reports/results.xml --configuration ./phpunit.xml -d memory_limit=-1
+        if: ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT }} == "1"
         run: echo ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT }}
       # - name: npm
       #   run: npm install
