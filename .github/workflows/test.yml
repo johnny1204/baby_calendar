@@ -93,12 +93,12 @@ jobs:
         run: echo ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT }}
            # Slack 通知用(成功時)
       - name: Slack Notification Success
-        if: success()
-        run: echo 1
+        if: ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT == '0' }} && ${{ job.status == 'success' }}
+        run: echo ${{job.status}}
       # Slack 通知用(失敗時)
       - name: Slack Notification Failure
-        if: failure()
-        run: echo 1
+        if: ${{ steps.status_run_phpunit.outputs.RUN_PHPUNIT == '0' }} && ${{ job.status == 'failure' }}
+        run: echo ${{job.status}}
       # - name: npm
       #   run: npm install
       # - name: run test
