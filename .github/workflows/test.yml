@@ -84,7 +84,7 @@ jobs:
               - '**.php'
       - id: status_run_phpunit
         run: |
-          run_phpunit=`test "${{ github.event_name }}" = "push" && ((test "${{ github.ref }}" = "refs/heads/feature/reviewdog_larastan" || test "${{ github.ref }}" = "refs/heads/develop") || "${{ steps.changes.outputs.php }}" = "true"); echo $?`
+          run_phpunit=`test "${{ github.event_name }}" = "push" && ((test "${{ github.ref }}" = "refs/heads/master") || "${{ steps.changes.outputs.php }}" = "true"); echo $?`
           echo "::set-output name=RUN_PHPUNIT::$run_phpunit"
       # PHPUnit
       - name: Run PHPUnit
