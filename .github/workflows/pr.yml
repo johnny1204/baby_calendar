@@ -16,3 +16,4 @@ jobs:
         with:
           branch: staging
           base: master
+          commit-message: test
