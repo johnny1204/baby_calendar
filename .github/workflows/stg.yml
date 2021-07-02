@@ -1,0 +1,15 @@
+name: stg
+
+on:
+  workflow_run:
+    workflows: [pr-test]
+    branch:
+      - master
+    types:
+      - completed
+
+jobs:
+  stg:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo test

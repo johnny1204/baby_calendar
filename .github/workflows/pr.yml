@@ -1,14 +1,23 @@
-name: pr
+name: pr-test
 
 on:
   pull_request:
     branches:
       - master
     types: [closed]
+  workflow_dispatch:
 
 jobs:
   pr:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
-      - run: echo test
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: git-pr-release
+        uses: bakunyo/git-pr-release-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_PR_RELEASE_BRANCH_PRODUCTION: staging
+          GIT_PR_RELEASE_BRANCH_STAGING: master
