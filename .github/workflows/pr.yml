@@ -14,7 +14,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: peter-evans/create-pull-request@v3
-        with:
-          branch: master
-          base: staging
+      - name: git-pr-release
+        uses: bakunyo/git-pr-release-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_PR_RELEASE_BRANCH_PRODUCTION: staging
+          GIT_PR_RELEASE_BRANCH_STAGING: master
