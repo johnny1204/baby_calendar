@@ -2,7 +2,7 @@ name: stg
 
 on:
   workflow_run:
-    workflows: [pr]
+    workflows: [pr-test]
     branch:
       - master
     types:
