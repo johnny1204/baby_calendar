@@ -12,9 +12,9 @@ jobs:
     if: github.event.pull_request.merged == true
     steps:
       - uses: actions/checkout@v2
-      - run: git fetch origin staging
+        with:
+          fetch-depth: 0
       - uses: peter-evans/create-pull-request@v3
         with:
           branch: master
           base: staging
-          commit-message: test
